@@ -102,6 +102,7 @@ public class ArticleModel extends CloudantModel {
     @Override
     public String toString() {
         return "ArticleModel{" +
+                "id='"  + super.getId() + '\'' +
                 "title='" + title + '\'' +
                 ", text='" + text + '\'' +
                 ", publisher='" + publisher + '\'' +

@@ -2,6 +2,7 @@ package com.test.articles.article;
 
 import com.test.articles.business.article.ArticleDao;
 import com.test.articles.business.article.ArticleModel;
+import com.test.articles.business.article.ArticleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class ArticleDaoTest {
 
     @Autowired
     ArticleDao articleDao;
+
+    @Autowired
+    ArticleService articleService;
 
     @Test
     public void testSave(){
@@ -64,11 +68,20 @@ public class ArticleDaoTest {
     public void testBulkUpdate(){
         List<ArticleModel> models = articleDao.findAll();
         for (ArticleModel model: models){
-            model.setText("22222222222");
+            model.setText("test update");
         }
 
         articleDao.bulkUpdate(models);
     }
 
+    @Test
+    public void testBulkUpdateService(){
+        List<ArticleModel> models = articleService.findAll();
+        for (ArticleModel model: models){
+            model.setText("!!!!!!!!!!!!!!!!!");
+        }
+
+        articleService.bulkUpdate(models);
+    }
 
 }
