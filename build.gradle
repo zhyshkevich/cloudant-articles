@@ -17,7 +17,7 @@ apply plugin: 'io.spring.dependency-management'
 
 ext {
     cloudantVersion = '2.9.0'
-    swaggerVersion = '2.7.0'
+    swaggerVersion = '2.6.1'
 }
 
 group = 'com.test'
