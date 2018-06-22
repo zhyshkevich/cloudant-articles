@@ -1,4 +1,4 @@
-package com.test.articles.business.article;
+package com.test.articles.business.cloudant.article;
 
 import com.cloudant.client.api.Database;
 import com.test.articles.business.cloudant.CloudantDao;
