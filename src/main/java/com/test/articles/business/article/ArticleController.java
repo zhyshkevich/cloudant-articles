@@ -2,10 +2,8 @@ package com.test.articles.business.article;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -37,9 +35,17 @@ public class ArticleController {
         articleService.bulkUpdate(models);
     }
 
-    @PutMapping("/{id}")
-    public void update(@PathVariable String id){
-        articleService.update(id);
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void update(@PathVariable String id,
+                       @RequestBody ArticleModel articleModel){
+
+        articleModel.setId(id);
+        articleService.update(articleModel);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable String id){
+        articleService.delete(id);
     }
 
 }

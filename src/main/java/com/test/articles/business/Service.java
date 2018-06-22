@@ -11,7 +11,7 @@ public interface Service<T extends CloudantModel, PK extends Serializable> {
 
     T findOne(PK id);
 
-    boolean update(String id);
+    boolean update(T entity);
 
     void delete(PK id);
 

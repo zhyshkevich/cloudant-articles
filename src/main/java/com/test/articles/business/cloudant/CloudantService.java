@@ -23,8 +23,8 @@ public class CloudantService<T extends CloudantModel, D extends CloudantDao<T>> 
     }
 
     @Override
-    public boolean update(String id) {
-        return dao.update(findOne(id));
+    public boolean update(T entity) {
+        return dao.update(entity);
     }
 
     @Override

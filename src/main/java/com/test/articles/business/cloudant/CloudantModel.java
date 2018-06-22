@@ -1,6 +1,5 @@
 package com.test.articles.business.cloudant;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.SerializedName;
 
 public abstract class CloudantModel {
@@ -8,7 +7,6 @@ public abstract class CloudantModel {
     @SerializedName("_id")
     private String id;
 
-    @JsonIgnore
     @SerializedName("_rev")
     private String rev;
 

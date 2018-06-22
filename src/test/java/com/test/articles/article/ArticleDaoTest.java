@@ -68,8 +68,11 @@ public class ArticleDaoTest {
     public void testBulkUpdate(){
         List<ArticleModel> models = articleDao.findAll();
         for (ArticleModel model: models){
-            model.setText("test update");
+            model.setText("test bulk update !!!!!!!!");
         }
+        ArticleModel model = new ArticleModel();
+        model.setText("TEST!!!!!!!!!!");
+        models.add(model);
 
         articleDao.bulkUpdate(models);
     }
@@ -78,8 +81,11 @@ public class ArticleDaoTest {
     public void testBulkUpdateService(){
         List<ArticleModel> models = articleService.findAll();
         for (ArticleModel model: models){
-            model.setText("!!!!!!!!!!!!!!!!!");
+            model.setText("2222");
         }
+        ArticleModel model = new ArticleModel();
+        model.setText("111");
+        models.add(model);
 
         articleService.bulkUpdate(models);
     }
