@@ -43,7 +43,7 @@ public class ArticleDaoTest {
 
     @Test
     public void testFindAll(){
-        List<ArticleModel> models = articleDao.findAll();
+        List<ArticleModel> models = articleService.findAll();
         for (ArticleModel model: models){
             System.out.println(model);
         }
@@ -76,17 +76,22 @@ public class ArticleDaoTest {
         articleDao.bulkUpdate(models);
     }
 
-    @Test
-    public void testBulkUpdateService(){
-        List<ArticleModel> models = articleService.findAll();
-        for (ArticleModel model: models){
-            model.setText("2222");
-        }
-        ArticleModel model = new ArticleModel();
-        model.setText("111");
-        models.add(model);
+//    @Test
+//    public void testBulkUpdateService(){
+//        List<ArticleModel> models = articleService.findAll();
+//        for (ArticleModel model: models){
+//            model.setText("2222");
+//        }
+//        ArticleModel model = new ArticleModel();
+//        model.setText("111");
+//        models.add(model);
+//
+//        articleService.bulkUpdate(models);
+//    }
 
-        articleService.bulkUpdate(models);
+    @Test
+    public void testGetByUUID(){
+        System.out.println(articleService.findByUUID("3844583b-3661-4365-ba43-0b0f31dd9961"));
     }
 
 }
