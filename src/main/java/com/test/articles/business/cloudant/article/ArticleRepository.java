@@ -1,19 +1,21 @@
 package com.test.articles.business.cloudant.article;
 
+import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.views.Key;
 import com.test.articles.utils.exception.ArticlesRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.util.List;
 
+import static com.cloudant.client.api.views.SettableViewParameters.STALE_OK;
+
 @Repository
-public class ArticleDao{
+public class ArticleRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(ArticleModel.class);
 
@@ -21,13 +23,15 @@ public class ArticleDao{
     private final String getByUUIDview;
     private final String getAll;
 
-    public ArticleDao(@Qualifier("articlesDatabase") Database database,
-                      @Value("${cloudant.articles.view.getByUUID}") String getByUUIDview,
-                      @Value("${cloudant.articles.view.getAll}") String getAll) {
-        this.database = database;
+    public ArticleRepository(@Value("${cloudant.articles.dbname}") String databaseName,
+                             @Value("${cloudant.articles.view.getByUUID}") String getByUUIDview,
+                             @Value("${cloudant.articles.view.getAll}") String getAll,
+                             CloudantClient cloudantClient) {
+        this.database = cloudantClient.database(databaseName, true);
         this.getByUUIDview = getByUUIDview;
         this.getAll = getAll;
     }
+
 
     public String create(ArticleModel entity) {
         return database.save(entity).getId();
@@ -42,6 +46,7 @@ public class ArticleDao{
         try {
             models = database.getViewRequestBuilder(getByUUIDview, getByUUIDview)
                     .newRequest(Key.Type.STRING, ArticleModel.class)
+                    .stale(STALE_OK)
                     .includeDocs(true)
                     .keys(id)
                     .build()
@@ -58,6 +63,7 @@ public class ArticleDao{
         try {
             return database.getViewRequestBuilder(getAll, getAll)
                     .newRequest(Key.Type.STRING, ArticleModel.class)
+                    .stale(STALE_OK)
                     .includeDocs(true)
                     .build()
                     .getResponse()

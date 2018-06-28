@@ -1,6 +1,5 @@
 package com.test.articles.config;
 
-import com.test.articles.config.cloudant.ArticlesDatabaseConfig;
 import com.test.articles.config.cloudant.CloudantConfig;
 import com.test.articles.config.swagger.SwaggerConfig;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +11,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Import({
         CloudantConfig.class,
-        ArticlesDatabaseConfig.class,
         SwaggerConfig.class,
 })
 @PropertySources({

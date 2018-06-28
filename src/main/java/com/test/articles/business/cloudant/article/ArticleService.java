@@ -10,43 +10,49 @@ import java.util.List;
 @Service
 public class ArticleService {
 
-    private ArticleDao dao;
+    private ArticleRepository repository;
+    private DateGenerator dateGenerator;
+    private UuidGenerator uuidGenerator;
 
     @Autowired
-    public ArticleService(ArticleDao articleDao){
-        this.dao = articleDao;
+    public ArticleService(ArticleRepository articleRepository,
+                          DateGenerator dateGenerator,
+                          UuidGenerator uuidGenerator){
+        this.repository = articleRepository;
+        this.dateGenerator = dateGenerator;
+        this.uuidGenerator = uuidGenerator;
     }
 
     public String create(ArticleModel entity) {
-        return dao.create(entity);
+        return repository.create(entity);
     }
 
     public ArticleModel findOne(String id) {
-        return dao.findOne(id);
+        return repository.findOne(id);
     }
 
     public ArticleModel findByUUID(String id){
-        return dao.findByUUID(id);
+        return repository.findByUUID(id);
     }
 
     public boolean update(ArticleModel entity) {
-        return dao.update(entity);
+        return repository.update(entity);
     }
 
     public void delete(String id) {
-        dao.delete(id);
+        repository.delete(id);
     }
 
     public List<ArticleModel> findAll() {
-        return dao.findAll();
+        return repository.findAll();
     }
 
     public void bulkUpdate(List<ArticleModel> objects, String email) {
         for (ArticleModel model: objects){
             if (model.getUuid() == null){
-                model.setUuid(UuidGenerator.generateUUID());
-                model.setDatePublished(DateGenerator.generateDate());
-                model.setDateEdited(DateGenerator.generateDate());
+                model.setUuid(uuidGenerator.generateUUID());
+                model.setDatePublished(dateGenerator.generateDate());
+                model.setDateEdited(dateGenerator.generateDate());
                 model.setPublisher(email);
             } else {
                 ArticleModel cloudantModel = findByUUID(model.getUuid());
@@ -60,7 +66,7 @@ public class ArticleService {
         for (ArticleModel model: objects){
             System.out.println(model);
         }
-        dao.bulkUpdate(objects);
+        repository.bulkUpdate(objects);
     }
 
 }

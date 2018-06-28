@@ -1,6 +1,6 @@
 package com.test.articles.article;
 
-import com.test.articles.business.cloudant.article.ArticleDao;
+import com.test.articles.business.cloudant.article.ArticleRepository;
 import com.test.articles.business.cloudant.article.ArticleModel;
 import com.test.articles.business.cloudant.article.ArticleService;
 import org.junit.Test;
@@ -13,10 +13,10 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ArticleDaoTest {
+public class ArticleRepositoryTest {
 
     @Autowired
-    ArticleDao articleDao;
+    ArticleRepository articleRepository;
 
     @Autowired
     ArticleService articleService;
@@ -32,12 +32,12 @@ public class ArticleDaoTest {
         articleModel.setEditor("asdasd");
         articleModel.setPublisher("asdasd");
 
-        articleDao.create(articleModel);
+        articleRepository.create(articleModel);
     }
 
     @Test
     public void testFind(){
-        ArticleModel articleModel = articleDao.findOne("9d4bf8d077914f4eba15a831f4db30f2");
+        ArticleModel articleModel = articleRepository.findOne("9d4bf8d077914f4eba15a831f4db30f2");
         System.out.println(articleModel);
     }
 
@@ -51,21 +51,21 @@ public class ArticleDaoTest {
 
     @Test
     public void testUpdate(){
-        ArticleModel articleModel = articleDao.findOne("9d4bf8d077914f4eba15a831f4db30f2");
+        ArticleModel articleModel = articleRepository.findOne("9d4bf8d077914f4eba15a831f4db30f2");
         articleModel.setPublisher("11111111111");
-        articleDao.update(articleModel);
+        articleRepository.update(articleModel);
     }
 
     @Test
     public void testDelete(){
         ArticleModel articleModel = new ArticleModel();
-        String id = articleDao.create(articleModel);
-        articleDao.delete(id);
+        String id = articleRepository.create(articleModel);
+        articleRepository.delete(id);
     }
 
     @Test
     public void testBulkUpdate(){
-        List<ArticleModel> models = articleDao.findAll();
+        List<ArticleModel> models = articleRepository.findAll();
         for (ArticleModel model: models){
             model.setText("test bulk update !!!!!!!!");
         }
@@ -73,7 +73,7 @@ public class ArticleDaoTest {
         model.setText("TEST!!!!!!!!!!");
         models.add(model);
 
-        articleDao.bulkUpdate(models);
+        articleRepository.bulkUpdate(models);
     }
 
 //    @Test
